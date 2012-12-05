@@ -2,7 +2,7 @@ myvim2
 ======
 
 my vimrc and plugin submodule by vundle
-=====
+====
 
 my vimrc and plugin
 
@@ -22,13 +22,12 @@ Switch to the `~/.vim` directory, and fetch submodules:
     git submodule update
 
 
-Add plugin powerline font, please follow:    
+plugin powerline font:    
+
     bundle/powerline/fontpatcher/README.rst
 
 
-==============================================================
-                    plugin CTRLP
-==============================================================
+plugin CTRLP:
 
 enter: 可以在目前 window 中打開(如果已存在其他 tab 中會跳過去)
 C-t: 會開新的 tab

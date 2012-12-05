@@ -1,37 +1,40 @@
-filetype off " ¥²¶·ªº
+filetype off " å¿…é ˆçš„
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-" ÅıVundle ºŞ²zVundle
+" è®“Vundle ç®¡ç†Vundle
 Bundle 'gmarik/vundle'
 
-" ¥N½X·½¦bgithub ¤Wªº
+" ä»£ç¢¼æºåœ¨github ä¸Šçš„
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'msanders/snipmate.vim'
+Bundle 'scrooloose/syntastic'
+Bundle 'Rip-Rip/clang_complete'
+" Bundle 'Shougo/neocomplcache'
 
-" ¥N½X¦s©ñ¦bvim script ¤W
+" ä»£ç¢¼å­˜æ”¾åœ¨vim script ä¸Š
 " Bundle 'FuzzyFinder'
 
-" ¥N½X¦s©ñ¦b¨ä¥L¦a¤è
+" ä»£ç¢¼å­˜æ”¾åœ¨å…¶ä»–åœ°æ–¹
 " Bundle 'git://git.wincent.com/command-t.git'
 " ...
 
-" ³]©w vim ½s¿è¹w³]³Æ¥÷¥Ø¿ı, ¥²¶·¥ı mkdir ~/vi_backup/
+" è¨­å®š vim ç·¨è¼¯é è¨­å‚™ä»½ç›®éŒ„, å¿…é ˆå…ˆ mkdir ~/vi_backup/
 "set backupdir=~/vi_backup/
 "set backup
 
-"¥h±¼°Q¹½ªº¦³Ãövi¤@­P©Ê¼Ò¦¡
+"å»æ‰è¨å­çš„æœ‰é—œviä¸€è‡´æ€§æ¨¡å¼
 set nocompatible
 
-" ´å¼Ğ²¾°Ê«á, ¤@¼Ë¥i¥H¥Î backsapce, del µ¥§R°£°Ê§@
+" æ¸¸æ¨™ç§»å‹•å¾Œ, ä¸€æ¨£å¯ä»¥ç”¨ backsapce, del ç­‰åˆªé™¤å‹•ä½œ
 set bs=2
 
-":highlight ¥i¥H¬İ¨ì©Ò¦³ªºÃC¦â
-" save .vimrc, auto exec, .vimrc ¦pªG¦sÀÉ, ´N·|¥ß¨è¹ê²{
+":highlight å¯ä»¥çœ‹åˆ°æ‰€æœ‰çš„é¡è‰²
+" save .vimrc, auto exec, .vimrc å¦‚æœå­˜æª”, å°±æœƒç«‹åˆ»å¯¦ç¾
 "autocmd! bufwritepost .vimrc source %
 
 syntax on
@@ -42,13 +45,13 @@ highlight Search term=reverse ctermbg=4 ctermfg=7
 highlight Folded ctermbg=black ctermfg=darkcyan
 "hi Comment ctermbg=black ctermfg=darkcyan
 
-" ¤U­±¥X²{¤@¦C bar.
+" ä¸‹é¢å‡ºç¾ä¸€åˆ— bar.
 set ls=2
 set statusline=%<%f\ %m%=\ %h%r\ %-19([%p%%]\ %3l,%02c%03V%)%y
 highlight StatusLine ctermfg=blue ctermbg=white
 set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors
 
-" ·j´M¨ìªº¦r¥[ hilight
+" æœå°‹åˆ°çš„å­—åŠ  hilight
 set hlsearch
 
 filetype on
@@ -57,30 +60,30 @@ set cindent
 set autoindent
 set smartindent
 
-" \t ·|¥H 4­ÓªÅ®æ¥N´À
+" \t æœƒä»¥ 4å€‹ç©ºæ ¼ä»£æ›¿
 set expandtab
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 
-" :sp ¶}ÀÉ®É, ¤W­±·|¦C¥X©Ò¦³ÀÉ®×
+" :sp é–‹æª”æ™‚, ä¸Šé¢æœƒåˆ—å‡ºæ‰€æœ‰æª”æ¡ˆ
 set wildmenu
 
-" ¥i¥H¥Î {{{ }}} ÁY±Æ Folded
+" å¯ä»¥ç”¨ {{{ }}} ç¸®æ’ Folded
 set foldmethod=marker
 
-set tags=tags "³]¸mtags¿ï¶µ¬°·í«e¥Ø¿ı¤Uªºtags¤å¥ó 
+set tags=tags "è¨­ç½®tagsé¸é …ç‚ºç•¶å‰ç›®éŒ„ä¸‹çš„tagsæ–‡ä»¶ 
 " {{{ UTF-8 Big5 Setting
-" ¥H¤U¥|­Ó³]¤U¥h. vim ½s¥X¨Ó³£¬O utf-8 ½s½Xªº.
+" ä»¥ä¸‹å››å€‹è¨­ä¸‹å». vim ç·¨å‡ºä¾†éƒ½æ˜¯ utf-8 ç·¨ç¢¼çš„.
 set fileencodings=big5,utf-8
-" ÀÉ®×¦sÀÉ·|¦s¦¨utf-8½s½X
+" æª”æ¡ˆå­˜æª”æœƒå­˜æˆutf-8ç·¨ç¢¼
 set termencoding=utf-8
 set enc=utf-8
 set tenc=utf8
 " }}}
 
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
-" ¥Îvimgrep°µ¨ì·j´M²{¦b´å¼Ğ¤U­±ªº¦r©Ò¦³¥X²{ÂI
+" ç”¨vimgrepåšåˆ°æœå°‹ç¾åœ¨æ¸¸æ¨™ä¸‹é¢çš„å­—æ‰€æœ‰å‡ºç¾é»
 nnoremap <F3> viwy:vimgrep /\<<C-R>"\>/g **/*.[ch] **/*[ch]pp<CR> :cw <CR>
 " close all windows
 nnoremap <F4> :q<CR> :q<CR> :q<CR> :q<CR>
@@ -88,7 +91,7 @@ nnoremap <silent> <F5> :NERDTreeToggle<CR>
 
 nnoremap <F9> :set paste!<CR>
 
-" ·|¦Û°Ê¨ì³Ì«áÂ÷¶}ªº¦ì¸m
+" æœƒè‡ªå‹•åˆ°æœ€å¾Œé›¢é–‹çš„ä½ç½®
 if has("autocmd")
     autocmd BufRead *.txt set tw=78
     autocmd BufReadPost *
@@ -97,7 +100,7 @@ if has("autocmd")
     \ endif
 endif
 
-" ³»³¡ªºMiniBufExplorer
+" é ‚éƒ¨çš„MiniBufExplorer
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
@@ -112,54 +115,36 @@ hi MBEVisibleNormal guifg=#5DC2D6 guibg=fg
 hi MBEChanged guifg=#CD5907 guibg=fg
 hi MBENormal guifg=#808080 guibg=fg
 
-" TagList
-let Tlist_Show_One_File=1
-let Tlist_Exit_OnlyWindow=1
-
-" WinManager
-let g:winManagerWindowLayout='FileExplorer|TagList'
-nmap wm :WMToggle<cr>
-
-" ¥N½X¥ş¯à¸É¥ş
+" ä»£ç¢¼å…¨èƒ½è£œå…¨
 filetype plugin indent on
 
-" ¨â­Ó°O¸¹¡A¥Î¨ÓÃÑ§O³o¶µ°Ê§@°µ¹L¨S
-let g:WM_Started = 0
-
-" ³]¸mctags
-function! Set_ctags()
-    let OmniCpp_NamespaceSearch = 1
-    let OmniCpp_GlobalScopeSearch = 1
-    let OmniCpp_ShowAccess = 1
-    let OmniCpp_ShowPrototypeInAbbr = 1
-    let OmniCpp_MayCompleteDot = 1
-    let OmniCpp_MayCompleteArrow = 1
-    let OmniCpp_MayCompleteScope = 1
-    let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-    au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-    set completeopt=menuone,menu,longest
-endfunction
-
-
-" ±Ò°Ê¥ªÃäÄæ
-function! Start_WM()
-  if g:WM_Started
-    return
-  endif
-  let exname = fnamemodify(bufname("%"), ":e")
-  if index(["c", "cpp", "cc", "cxx", "py", "asm", "pas"], exname) != -1
-    exec "WMToggle"
-    let g:WM_Started = 1
-  endif
-endfunction
-
-" ¦Û°Ê©R¥O²Õ¡A¥Î©ó³]¸mctags©MWM
-augroup SettingCtags
-  autocmd!
-  autocmd BufRead * call Set_ctags()
-"  autocmd BufRead * call Start_WM()
-augroup END
-
+" =============================
+" inside plugin OmniComplete 
+" =============================
+     " OmniComplete {
+         if has("autocmd") && exists("+omnifunc")
+             autocmd Filetype *
+                 \if &omnifunc == "" |
+                 \setlocal omnifunc=syntaxcomplete#Complete |
+                 \endif
+         endif
+ 
+         hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
+         hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
+         hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
+ 
+         " some convenient mappings
+         inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+         inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+         inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+         inoremap <expr> <C-d>      pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+         inoremap <expr> <C-u>      pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+ 
+         " automatically open and close the popup menu / preview window
+         au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+         set completeopt=menu,preview,longest
+     " }
+ 
 " =============================
 " plugin PowerLine
 " =============================
@@ -204,8 +189,18 @@ let g:ctrlp_custom_ignore = {
   \ 'link': 'some_bad_symbolic_links',
   \ }
 
+
 " =============================
-" plugin ctrlp
+" plugin clang_complete
 " =============================
+let g:clang_auto_select = 1
+let g:clang_complete_auto = 1
+let g:clang_complete_copen = 1
+let g:clang_periodic_quickfix = 1
+let g:clang_snippets = 1
+let g:clang_snippets_engine = 'snipmate'
+let g:clang_auto_user_options="path, .clang_complete"
+set completeopt=menu,longest
+
 
 
