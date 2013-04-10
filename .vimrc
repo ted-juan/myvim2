@@ -3,6 +3,7 @@ filetype off " 必須的
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
+" BundleInstall! => 安裝或更新 Bundle command
 " 讓Vundle 管理Vundle
 Bundle 'gmarik/vundle'
 
@@ -13,8 +14,8 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'msanders/snipmate.vim'
 Bundle 'Shougo/neocomplcache'
-Bundle 'Rip-Rip/clang_complete'
-Bundle 'Shougo/neocomplcache-clang_complete'
+" Bundle 'Rip-Rip/clang_complete'
+" Bundle 'Shougo/neocomplcache-clang_complete'
 Bundle 'majutsushi/tagbar'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'godlygeek/tabular'
@@ -92,8 +93,8 @@ set tenc=utf8
 " =============================
 " 行號的顯示與隱藏
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
-" vimgrep搜尋現在游標下面的字所有出現的地方, 所有.h .c .cpp 包含子目錄, 並顯示在quickfix
-nnoremap <F3> viwy:vimgrep /\<<C-R>"\>/g **/*.[ch] **/*.cxx **/*[ch]pp<CR> :cw <CR>
+" vimgrep搜尋現在游標下面的字所有出現的地方, 所有.h .c .cpp .cxx 包含子目錄, 並顯示在quickfix
+nnoremap <F3> viwy:vimgrep /\<<C-R>"\>/g **/*.[ch] **/*.cxx **/*.cc **/*.S **/*[ch]pp<CR> :cw <CR>
 " close all windows
 nnoremap <silent> <F5> :NERDTreeToggle<CR>
 nnoremap <silent> <F6> :TagbarToggle<CR>
@@ -145,23 +146,49 @@ filetype plugin indent on
 " =============================
 
 " 頂部的MiniBufExplorer
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplMapCTabSwitchWindows = 1
-let g:miniBufExplForceSyntaxEnable = 1
+ let g:miniBufExplMapWindowNavVim = 1
+ let g:miniBufExplMapWindowNavArrows = 1
+ let g:miniBufExplMapCTabSwitchBufs = 1
+ let g:miniBufExplMapCTabSwitchWindows = 1
+ let g:miniBufExplForceSyntaxEnable = 1
 
 " MiniBufExpl Colors
-hi MBEVisibleActive guifg=#A6DB29 guibg=fg
-hi MBEVisibleChangedActive guifg=#F1266F guibg=fg
-hi MBEVisibleChanged guifg=#F1266F guibg=fg
-hi MBEVisibleNormal guifg=#5DC2D6 guibg=fg
-hi MBEChanged guifg=#CD5907 guibg=fg
-hi MBENormal guifg=#808080 guibg=fg
+ hi MBEVisibleActive guifg=#A6DB29 guibg=fg
+ hi MBEVisibleChangedActive guifg=#F1266F guibg=fg
+ hi MBEVisibleChanged guifg=#F1266F guibg=fg
+ hi MBEVisibleNormal guifg=#5DC2D6 guibg=fg
+ hi MBEChanged guifg=#CD5907 guibg=fg
+ hi MBENormal guifg=#808080 guibg=fg
 
-nnoremap <S-Right> :bp<CR>
-nnoremap <S-Left> :bp<CR>
+ nnoremap <S-Right> :bp<CR>
+ nnoremap <S-Left> :bp<CR>
 
+ " ctrl+左右键来移动split windows
+ "
+" nn <silent> <C-left> <C-w><left>
+" nn <silent> <C-right> <C-w><right>
+ "
+ " shift+左右键来移动tab
+ "
+" nn <silent> <S-left> :tabp<CR>
+" nn <silent> <S-right> :tabn<CR>
+
+ "新分頁
+ nmap <C-t> :tabnew<cr>
+ imap <C-t> <ESC>:tabnew<cr>
+
+ "關分頁
+ nmap <C-w> :tabclose<CR>
+
+ "設定vim -p
+ "檔案上限，不然有限制的開啟前部分的檔案，後面就沒看到了。
+ set tabpagemax=1000
+ 
+ " ctrl+上下鍵切quickfix
+ "
+ nn <silent> <C-up> :cp<CR>
+ nn <silent> <C-down> :cn<CR>
+"
 " =============================
 " inside plugin OmniComplete 
 " =============================
@@ -245,7 +272,7 @@ let g:ctrlp_custom_ignore = {
 " plugin clang_complete
 " =============================
 let g:clang_auto_select = 2
-let g:clang_complete_auto = 1
+let g:clang_complete_auto = 0
 let g:clang_complete_copen = 0
 " Open QuickFix by <F7> key
 let g:clang_periodic_quickfix = 0
