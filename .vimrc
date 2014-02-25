@@ -21,6 +21,10 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'godlygeek/tabular'
 Bundle 'hsitz/VimOrganizer'
 " Bundle 'scrooloose/syntastic'
+" Bundle 'Shougo/vimproc'
+" Bundle 'Shougo/vimshell'
+Bundle 'plasticboy/vim-markdown'
+Bundle 'vim-scripts/Conque-Shell'
 
 " 代碼存放在vim script 上
 " Bundle 'FuzzyFinder'
@@ -44,7 +48,8 @@ set bs=2
 "autocmd! bufwritepost .vimrc source %
 
 syntax on
-    
+
+
 " /usr/share/vim/vim63/colors/desert.vim
 highlight Search term=reverse ctermbg=4 ctermfg=7
 "highlight Normal ctermbg=black ctermfg=white
@@ -72,8 +77,28 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 
+" Be smart when using tabs ;)
+set smarttab
+
 " :sp 開檔時, 上面會列出所有檔案
 set wildmenu
+
+" Ignore compiled files
+ set wildignore=*.o,*~,*.pyc
+ 
+" Makes search act like search in modern browsers
+set incsearch
+
+" Don't redraw while executing macros (good performance config)
+set lazyredraw
+
+" For regular expressions turn magic on
+set magic
+
+" Show matching brackets when text indicator is over them
+set showmatch
+" How many tenths of a second to blink when matching brackets
+set mat=2
 
 " 可以用 {{{ }}} 縮排 Folded
 set foldmethod=marker
@@ -88,6 +113,25 @@ set enc=utf-8
 set tenc=utf8
 " }}}
 
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files, backups and undo
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowb
+set noswapfile
+
+""""""""""""""""""""""""""""""
+" => Visual mode related
+""""""""""""""""""""""""""""""
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :call VisualSelection('f')<CR>
+vnoremap <silent> # :call VisualSelection('b')<CR>
+
 " =============================
 " keymap <F1> ~ < F9>
 " =============================
@@ -100,6 +144,10 @@ nnoremap <silent> <F5> :NERDTreeToggle<CR>
 nnoremap <silent> <F6> :TagbarToggle<CR>
 nnoremap <silent> <F7> :call g:ClangUpdateQuickFix()<CR>
 nnoremap <F9> :set paste!<CR>
+nnoremap <F8> :ConqueTermVSplit zsh<CR>
+
+" Open markdown files with Chrome.
+autocmd BufEnter *.md exe 'noremap <F4> :!chromium-browser %:p<CR>'
 
 " =============================
 " keymap 
@@ -141,6 +189,105 @@ autocmd QuickFixCmdPost    l* nested lwindow
 " 代碼全能補全
 filetype plugin indent on
 
+ nnoremap <S-Right> :bp<CR>
+ nnoremap <S-Left> :bn<CR>
+
+ " ctrl+左右键来移动split windows
+ "
+ nmap <silent> <C-left> <C-w><left>
+ nmap <silent> <C-right> <C-w><right>
+ nmap <silent> <C-h> <C-w><left>
+ nmap <silent> <C-l> <C-w><right>
+ "
+ " shift+左右键来移动tab
+ "
+" nn <silent> <S-left> :tabp<CR>
+" nn <silent> <S-right> :tabn<CR>
+
+ "新分頁
+ nmap <C-t> :tabnew<cr>
+ imap <C-t> <ESC>:tabnew<cr>
+
+ "關分頁
+ " nmap <C-w> :tabclose<CR>
+
+ "Normal mode時可用tab及shift-tab
+ nmap <tab>   v>
+ nmap <s-tab> v<
+ vmap <tab>   >gv
+ vmap <s-tab> <gv
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Moving around, tabs, windows and buffers
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Treat long lines as break lines (useful when moving around in them)
+map j gj
+map k gk
+
+" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
+map <space> /
+map <c-space> ?
+
+ "設定vim -p
+ "檔案上限，不然有限制的開啟前部分的檔案，後面就沒看到了。
+ set tabpagemax=1000
+ 
+ " ctrl+上下鍵切quickfix
+ "
+ nn <silent> <C-up> :cp<CR>
+ nn <silent> <C-down> :cn<CR>
+
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+let mapleader = ","
+let g:mapleader = ","
+
+" Fast saving
+nmap <leader>w :w!<cr>
+
+" Remap VIM 0 to first non-blank character
+map 0 ^
+
+" =============================
+" debug VIM script"
+" =============================
+fun! EvalVimScriptRegion(s,e)
+  let lines = getline(a:s,a:e)
+  let file = tempname()
+  cal writefile(lines,file)
+  redir @e
+  silent exec ':source '.file
+  cal delete(file)
+  redraw
+  redir END
+  echo "Region evaluated."
+ 
+  if strlen(getreg('e')) > 0
+    10new
+    redraw
+    silent file "EvalResult"
+    setlocal noswapfile  buftype=nofile bufhidden=wipe
+    setlocal nobuflisted nowrap cursorline nonumber fdc=0
+    " syntax init
+    set filetype="eval"
+    syn match ErrorLine +^E\d\+:.*$+
+    hi link ErrorLine Error
+    silent $put =@e
+  endif
+endf
+augroup VimEval
+  au!
+  au filetype vim :command! -range Eval  :cal EvalVimScriptRegion(<line1>,<line2>)
+  au filetype vim :vnoremap <silent> e   :Eval<CR>
+augroup END
+
+" =============================
+" plugin Markdown Preview
+" =============================
+let g:vim_markdown_folding_disabled=1
+let g:vim_markdown_initial_foldlevel=1
+
+"
 " =============================
 " plugin MiniBufExplorer
 " =============================
@@ -160,34 +307,6 @@ filetype plugin indent on
  hi MBEChanged guifg=#CD5907 guibg=fg
  hi MBENormal guifg=#808080 guibg=fg
 
- nnoremap <S-Right> :bp<CR>
- nnoremap <S-Left> :bp<CR>
-
- " ctrl+左右键来移动split windows
- "
-" nn <silent> <C-left> <C-w><left>
-" nn <silent> <C-right> <C-w><right>
- "
- " shift+左右键来移动tab
- "
-" nn <silent> <S-left> :tabp<CR>
-" nn <silent> <S-right> :tabn<CR>
-
- "新分頁
- nmap <C-t> :tabnew<cr>
- imap <C-t> <ESC>:tabnew<cr>
-
- "關分頁
- nmap <C-w> :tabclose<CR>
-
- "設定vim -p
- "檔案上限，不然有限制的開啟前部分的檔案，後面就沒看到了。
- set tabpagemax=1000
- 
- " ctrl+上下鍵切quickfix
- "
- nn <silent> <C-up> :cp<CR>
- nn <silent> <C-down> :cn<CR>
 "
 " =============================
 " inside plugin OmniComplete 
@@ -432,26 +551,76 @@ let g:org_custom_searches = [
 " GUI Settings {
     " GVIM- (here instead of .gvimrc)
     if has('gui_running')
+        colorscheme desert
+        set background=dark
         set guioptions-=T           " remove the toolbar
+        set guioptions+=e           " 
+        set guitablabel=%M\ %t      " 
         set lines=50                " 40 lines of text instead of 24,
-        if has("gui_gtk2")
-            set guifont=Andale\ Mono\ Regular\ 10,Menlo\ Regular\ 11,Consolas\ Regular\ 12,Courier\ New\ Regular\ 12
-        else
-            set guifont=Andale\ Mono\ Regular:h10,Menlo\ Regular:h11,Consolas\ Regular:h12,Courier\ New\ Regular:h12
-        endif
-        if has('gui_macvim')
-            set transparency=5          " Make the window slightly transparent
-        endif
-    else
-        if &term == 'xterm' || &term == 'screen'
-            set t_Co=256                 " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
-        endif
+        set guifont=Andale\ Mono\ Regular\ 10,Menlo\ Regular\ 11,Consolas\ Regular\ 12,Courier\ New\ Regular\ 12
         "set term=builtin_ansi       " Make arrow and other keys work
     endif
 
-    if has ('x') && has ('gui') " on Linux use + register for copy-paste
-        set clipboard=unnamedplus
-    elseif has ('gui') " one mac and windows, use * register for copy-paste
-        set clipboard=unnamed
-    endif
+    " on Linux use + register for copy-paste
+    set clipboard=unnamedplus
 " }
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Helper functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! CmdLine(str)
+    exe "menu Foo.Bar :" . a:str
+    emenu Foo.Bar
+    unmenu Foo
+endfunction
+
+function! VisualSelection(direction) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", '\\/.*$^~[]')
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'b'
+        execute "normal ?" . l:pattern . "^M"
+    elseif a:direction == 'gv'
+        call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    elseif a:direction == 'f'
+        execute "normal /" . l:pattern . "^M"
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+
+
+" Returns true if paste mode is enabled
+function! HasPaste()
+    if &paste
+        return 'PASTE MODE  '
+    en
+    return ''
+endfunction
+
+" Don't close window, when deleting a buffer
+command! Bclose call <SID>BufcloseCloseIt()
+function! <SID>BufcloseCloseIt()
+   let l:currentBufNum = bufnr("%")
+   let l:alternateBufNum = bufnr("#")
+
+   if buflisted(l:alternateBufNum)
+     buffer #
+   else
+     bnext
+   endif
+
+   if bufnr("%") == l:currentBufNum
+     new
+   endif
+
+   if buflisted(l:currentBufNum)
+     execute("bdelete! ".l:currentBufNum)
+   endif
+endfunction

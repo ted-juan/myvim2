@@ -12,12 +12,9 @@ Create symlinks:
 
     ln -s ~/.vim/vimrc ~/.vimrc
 
-Switch to the `~/.vim` directory, and fetch submodules:
+Get Vundle plugin
 
-    cd ~/.vim
-    git submodule init
-    git submodule update
-
+    git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
 plugin powerline font:    
 
