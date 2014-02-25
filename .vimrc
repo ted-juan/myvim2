@@ -3,6 +3,7 @@ filetype off " 必須的
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
+" git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 " BundleInstall! => 安裝或更新 Bundle command
 " 讓Vundle 管理Vundle
 Bundle 'gmarik/vundle'
