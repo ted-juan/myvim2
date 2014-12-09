@@ -72,11 +72,11 @@ set cindent
 set autoindent
 set smartindent
 
-" \t 會以 4個空格代替
-set expandtab
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
+" tab \t 會以 4個空格代替
+set noexpandtab
+set shiftwidth=8
+set softtabstop=8
+set tabstop=8
 
 " Be smart when using tabs ;)
 set smarttab
@@ -115,7 +115,8 @@ set tenc=utf8
 " }}}
 
 " Use Unix as the standard file type
-set ffs=unix,dos,mac
+" set ffs=unix,dos,mac
+set ffs=unix
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
@@ -149,6 +150,9 @@ nnoremap <F8> :ConqueTermVSplit zsh<CR>
 
 " Open markdown files with Chrome.
 autocmd BufEnter *.md exe 'noremap <F4> :!chromium-browser %:p<CR>'
+
+" 存檔時自動去除後面的空白 
+autocmd FileType c,cpp,java,php,perl,python,ruby,sh,patch autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 
 " =============================
 " keymap 
