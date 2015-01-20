@@ -10,7 +10,7 @@ Bundle 'gmarik/vundle'
 
 " 代碼源在github 上的
 Bundle 'Lokaltog/vim-powerline'
-Bundle 'kien/ctrlp.vim'
+" Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'msanders/snipmate.vim'
@@ -18,7 +18,7 @@ Bundle 'Shougo/neocomplcache'
 " Bundle 'Rip-Rip/clang_complete'
 " Bundle 'Shougo/neocomplcache-clang_complete'
 Bundle 'majutsushi/tagbar'
-Bundle 'Lokaltog/vim-easymotion'
+" Bundle 'Lokaltog/vim-easymotion'
 Bundle 'godlygeek/tabular'
 Bundle 'hsitz/VimOrganizer'
 " Bundle 'scrooloose/syntastic'
@@ -26,6 +26,7 @@ Bundle 'hsitz/VimOrganizer'
 " Bundle 'Shougo/vimshell'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'vim-scripts/Conque-Shell'
+Bundle 'peterhoeg/vim-qml'
 
 " 代碼存放在vim script 上
 " Bundle 'FuzzyFinder'
@@ -206,8 +207,8 @@ filetype plugin indent on
  "
  " shift+左右键来移动tab
  "
-" nn <silent> <S-left> :tabp<CR>
-" nn <silent> <S-right> :tabn<CR>
+ "nn <silent> <S-left> :tabp<CR>
+ "nn <silent> <S-right> :tabn<CR>
 
  "新分頁
  nmap <C-t> :tabnew<cr>
@@ -230,7 +231,7 @@ map j gj
 map k gk
 
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
+map <space> i 
 map <c-space> ?
 
  "設定vim -p
