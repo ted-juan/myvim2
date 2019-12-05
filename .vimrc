@@ -10,7 +10,7 @@ Bundle 'gmarik/vundle'
 
 " 代碼源在github 上的
 Bundle 'Lokaltog/vim-powerline'
-" Bundle 'kien/ctrlp.vim'
+Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'msanders/snipmate.vim'
@@ -27,6 +27,7 @@ Bundle 'hsitz/VimOrganizer'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'vim-scripts/Conque-Shell'
 Bundle 'peterhoeg/vim-qml'
+Bundle 'editorconfig/editorconfig-vim'
 
 " 代碼存放在vim script 上
 " Bundle 'FuzzyFinder'
@@ -108,7 +109,8 @@ set foldmethod=marker
 set tags=tags "設置tags選項為當前目錄下的tags文件 
 " {{{ UTF-8 Big5 Setting
 " 以下四個設下去. vim 編出來都是 utf-8 編碼的.
-set fileencodings=big5,utf-8
+"set fileencodings=big5,utf-8
+set fileencodings=utf-8
 " 檔案存檔會存成utf-8編碼
 set termencoding=utf-8
 set enc=utf-8
@@ -117,7 +119,7 @@ set tenc=utf8
 
 " Use Unix as the standard file type
 " set ffs=unix,dos,mac
-set ffs=unix
+set ffs=unix,mac
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
@@ -148,12 +150,13 @@ nnoremap <silent> <F6> :TagbarToggle<CR>
 nnoremap <silent> <F7> :call g:ClangUpdateQuickFix()<CR>
 nnoremap <F9> :set paste!<CR>
 nnoremap <F8> :ConqueTermVSplit zsh<CR>
+nnoremap <F4> :%s/\r//g<CR>
 
 " Open markdown files with Chrome.
-autocmd BufEnter *.md exe 'noremap <F4> :!chromium-browser %:p<CR>'
+" autocmd BufEnter *.md exe 'noremap <F4> :!chromium-browser %:p<CR>'
 
 " 存檔時自動去除後面的空白 
-autocmd FileType c,cpp,java,php,perl,python,ruby,sh,patch autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+autocmd FileType c,cpp,cxx,h,java,php,perl,python,ruby,sh,patch autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 
 " =============================
 " keymap 
@@ -171,10 +174,10 @@ noremap! <Ml> <Right>
 
 " Ctrl-]轉至最佳匹配的相應Tag，Ctrl-T返回上一個匹配。如果有多個匹配，g Ctrl-]可顯示所有備選的tags。如有需要，可互換Ctrl-]和g Ctrl-] 
 " 在普通和可视模式中，将<c-]>与g<c-]>互换
-" nnoremap <c-]> g<c-]>
-" vnoremap <c-]> g<c-]>
-" nnoremap g<c-]> <c-]>
-" vnoremap g<c-]> <c-]>
+nnoremap <c-]> g<c-]>
+vnoremap <c-]> g<c-]>
+nnoremap g<c-]> <c-]>
+vnoremap g<c-]> <c-]>
 
 
 " 會自動到最後離開的位置
@@ -195,8 +198,10 @@ autocmd QuickFixCmdPost    l* nested lwindow
 " 代碼全能補全
 filetype plugin indent on
 
+ " minibufexpl
  nnoremap <S-Right> :bp<CR>
  nnoremap <S-Left> :bn<CR>
+ nnoremap <C-c> :MBEbd<CR>
 
  " ctrl+左右键来移动split windows
  "
@@ -345,7 +350,7 @@ let g:vim_markdown_initial_foldlevel=1
 " plugin PowerLine
 " =============================
 let g:Powerline_symbols = 'fancy'
-set guifont=MyFont\ for\ Powerline
+set guifont=Monaco\ for\ Powerline
 
 " =============================
 " plugin tagbar
@@ -375,6 +380,8 @@ let g:NERDTreeWinSize=30
 " =============================
 nnoremap <C-W><C-U> :CtrlPMRU<CR>
 nnoremap <C-W>u :CtrlPMRU<CR>
+" let g:ctrlp_map = '<C-b>'
+" let g:ctrlp_cmd = 'CtrlP'
 
 " let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
 let g:ctrlp_working_path_mode=0
