@@ -54,27 +54,27 @@ Shift + 方向鍵
 
 ### 常用快捷鍵:
 
-- qq : 不存檔快速離開
-- ctrl+p : 輸入字串快速將match 檔案開啟
-- :vsp : 分割左右視窗
-- :sp : 分割上下視窗
-- ctrl+c : 多檔案時,快速關閉檔案
-- :n [filename]  : 開啟新檔案
-- 將新字串取代舊字串 : 在新字串上輸入 ye, 再舊字串上輸入 vep
+- qq : 不存檔快速離開  
+- ctrl+p : 輸入字串快速將match 檔案開啟  
+- :vsp : 分割左右視窗  
+- :sp : 分割上下視窗  
+- ctrl+c : 多檔案時,快速關閉檔案  
+- :n [filename]  : 開啟新檔案  
+- 將新字串取代舊字串 : 在新字串上輸入 ye, 再舊字串上輸入 vep  
 
 ### vim 好用相關 tool
 
-- vimdiff
-- vifm
+- vimdiff  
+- vifm  
 
 ### vimdiff 下使用的 copy 鍵
 
-- dp : 目前視窗 copy 到 另一視窗
-- do : 另一視窗 copy 到目前視窗
+- dp : 目前視窗 copy 到 另一視窗  
+- do : 另一視窗 copy 到目前視窗  
 
 ### ctags -R
 
-- ctrl+]  : jump into
-- ctrl+o  : back
+- ctrl+]  : jump into  
+- ctrl+o  : back  
 
 ### 
