@@ -1,5 +1,4 @@
 filetype off " 必須的
-
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -110,7 +109,7 @@ set tags=tags "設置tags選項為當前目錄下的tags文件
 " {{{ UTF-8 Big5 Setting
 " 以下四個設下去. vim 編出來都是 utf-8 編碼的.
 "set fileencodings=big5,utf-8
-set fileencodings=utf-8
+set fileencodings=utf-8,gbk,gb2312,big5
 " 檔案存檔會存成utf-8編碼
 set termencoding=utf-8
 set enc=utf-8
